@@ -13,12 +13,13 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 // Check Connection
-mongoose.connect('mongodb://localhost:27017/fancy-todo',  {useNewUrlParser: true})
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-  console.log('Connect to mongodb')
-});
+mongoose.connect(`mongodb://ghiffariarw:aa1234@cluster0-shard-00-00-duzdl.mongodb.net:27017,cluster0-shard-00-01-duzdl.mongodb.net:27017,cluster0-shard-00-02-duzdl.mongodb.net:27017/fancy-todo?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority`, { useNewUrlParser: true }, (err) => {
+  if (err) {
+    console.log(err), console.log(`Error connection to mongoose`)
+  } else {
+    console.log(`Success connect to mongoose`)
+  }
+})
 
 app.use('/', routes)
 app.use(errHandler)
